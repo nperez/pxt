@@ -1,5 +1,7 @@
-use Test::More('tests', 1);
+use Test::More;
 
-BEGIN { use_ok('POEx::Types', ':all') }
+use_ok('POEx::Types', ':all');
+
+done_testing();
 
 

@@ -1,7 +1,6 @@
 package POEx::Types;
 use warnings;
 use strict;
-use 5.010;
 
 #ABSTRACT: Exported Types for use within POEx modules
 
@@ -13,7 +12,19 @@ and is based on Sub::Exporter, so see that module for options on importing.
 =cut
 
 use POE;
-use MooseX::Types -declare => [ 'Driver', 'Filter', 'Wheel', 'WheelID', 'Kernel', 'SessionID', 'SessionAlias', 'Session', 'DoesSessionInstantiation' ];
+use MooseX::Types -declare => 
+[ 
+    'Driver', 
+    'Filter', 
+    'Wheel', 
+    'WheelID', 
+    'Kernel', 
+    'SessionID', 
+    'SessionAlias', 
+    'Session', 
+    'DoesSessionInstantiation',
+    'SessionRefIdAliasInstantiation'
+];
 use MooseX::Types::Moose('Int', 'Str');
 use MooseX::Types::Structured('Dict');
 
@@ -101,6 +112,15 @@ POEx::Role::SessionInstantiation
 subtype DoesSessionInstantiation,
     as 'Moose::Object',
     where { $_->does('POEx::Role::SessionInstantiation') };
+
+=head2 SessionRefIdAliasInstantiation
+
+This is a convience type that checks for the above types in one go.
+
+=cut
+
+subtype SessionRefIdAliasInstantiation,
+    as Session|SessionID|SessionAlias|DoesSessionInstantiation;
 
 =head2 WheelID
 

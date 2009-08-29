@@ -1,4 +1,8 @@
-Revision history for {{ $dist-name }}: {{ $dist->version }}
+Revision history for {{ $dist->name }}: {{ $dist->version }}
 
 {{ $NEXT }}
+        Adjust dist.ini to not set a minimum perl version
+        Add aggregate type to reduce typing
+
+0.091420  2009-05-22 04:17:43 UTC
         Initial release to abstract out some types defined in other projects

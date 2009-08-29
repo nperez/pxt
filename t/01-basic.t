@@ -1,7 +1,6 @@
-use Test::More('tests', 9);
+use Test::More;
 use warnings;
 use strict;
-use 5.010;
 
 use Test::Exception;
 
@@ -16,3 +15,7 @@ lives_ok { WheelID };
 lives_ok { SessionID };
 lives_ok { SessionAlias };
 lives_ok { DoesSessionInstantiation };
+lives_ok { SessionRefIdAliasInstantiation };
+
+done_testing();
+
