@@ -1,6 +1,10 @@
 Revision history for {{ $dist->name }}: {{ $dist->version }}
 
 {{ $NEXT }}
+        Increase our minimal POE version so that POE::Wheel::Run subclasses POE::Wheel
+        Document previously undocumented coercions
+
+0.092430  2009-08-31 08:56:48 UTC
         Adjust dist.ini to not set a minimum perl version
         Add aggregate type to reduce typing
 

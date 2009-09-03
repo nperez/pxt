@@ -135,6 +135,9 @@ subtype WheelID,
 
 =head1 COERCIONS
 
+Most of these coercions require an active POE::Kernel and so their use is only
+recommened inside a proper POE context
+
 =head2 SessionID
 
 You can coerce SessionAlias, Session, and DoesSessionInstantiation to a 
@@ -150,6 +153,13 @@ coerce SessionID,
     from DoesSessionInstantiation,
         via { $_->ID };
 
+=head2 SessionAlias
+
+You can coerce Session, SessionID, and DoesSessionInstantiation to a 
+SessionAlias (via to_SessionAlias)
+
+=cut
+
 coerce SessionAlias,
     from SessionID,
         via { ($poe_kernel->alias_list($_))[0]; },
@@ -157,7 +167,12 @@ coerce SessionAlias,
         via { ($poe_kernel->alias_list($_))[0]; },
     from DoesSessionInstantiation,
         via { $_->alias; };
-        
+
+=head2 Session
+
+You can coerce SessionAlias and SessionID to a SessionID (via to_Session)
+
+=cut
 
 coerce Session,
     from SessionID,
