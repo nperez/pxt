@@ -1,6 +1,13 @@
-Revision history for {{ $dist->name }}: {{ $dist->version }}
+Revision history for POEx-Types: {{ $dist->version }}
 
 {{ $NEXT }}
+        Clean deps to include newer ones and drop MXD
+
+0.092460  2009-09-03 21:01:49 UTC
+        Increase our minimal POE version so that POE::Wheel::Run subclasses POE::Wheel
+        Document previously undocumented coercions
+
+0.092430  2009-08-31 08:56:48 UTC
         Adjust dist.ini to not set a minimum perl version
         Add aggregate type to reduce typing
 
