@@ -1,6 +1,10 @@
 Revision history for POEx-Types: {{ $dist->version }}
 
 {{ $NEXT }}
+        Revamp dist with modern Dist::Zilla
+        Redo docs with new Pod::Weaver
+
+0.092670  2009-09-24 19:48:13 UTC
         Clean deps to include newer ones and drop MXD
 
 0.092460  2009-09-03 21:01:49 UTC

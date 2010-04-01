@@ -34,9 +34,7 @@ class_type 'POE::Wheel';
 class_type 'POE::Filter';
 class_type 'POE::Driver';
 
-=head1 TYPES
-
-=head2 Kernel
+=type Kernel
 
 A subtype for POE::Kernel.
 
@@ -45,7 +43,7 @@ A subtype for POE::Kernel.
 subtype Kernel,
     as 'POE::Kernel';
 
-=head2 Wheel
+=type Wheel
 
 A subtype for POE::Wheel.
 
@@ -54,7 +52,7 @@ A subtype for POE::Wheel.
 subtype Wheel,
     as 'POE::Wheel';
 
-=head2 Filter
+=type Filter
 
 A subtype for POE::Filter.
 
@@ -63,7 +61,7 @@ A subtype for POE::Filter.
 subtype Filter,
     as 'POE::Filter';
 
-=head2 Driver
+=type Driver
 
 A subtype for POE::Driver.
 
@@ -72,7 +70,7 @@ A subtype for POE::Driver.
 subtype Driver,
     as 'POE::Driver';
 
-=head2 Session
+=type Session
 
 This sets an isa constraint on POE::Session
 
@@ -81,7 +79,7 @@ This sets an isa constraint on POE::Session
 subtype Session,
     as 'POE::Session';
 
-=head2 SessionID
+=type SessionID
 
 Session IDs in POE are represented as positive integers and this Type 
 constrains as such
@@ -93,7 +91,7 @@ subtype SessionID,
     where { $_ > 0 },
     message { 'Something is horribly wrong with the SessionID.' };
 
-=head2 SessionAlias
+=type SessionAlias
 
 Session aliases are strings in and this is simply an alias for Str
 
@@ -102,7 +100,7 @@ Session aliases are strings in and this is simply an alias for Str
 subtype SessionAlias,
     as Str;
 
-=head2 DoesSessionInstantiation
+=type DoesSessionInstantiation
 
 This sets a constraint for an object that does
 POEx::Role::SessionInstantiation
@@ -113,7 +111,7 @@ subtype DoesSessionInstantiation,
     as 'Moose::Object',
     where { $_->does('POEx::Role::SessionInstantiation') };
 
-=head2 SessionRefIdAliasInstantiation
+=type SessionRefIdAliasInstantiation
 
 This is a convience type that checks for the above types in one go.
 
@@ -122,7 +120,7 @@ This is a convience type that checks for the above types in one go.
 subtype SessionRefIdAliasInstantiation,
     as Session|SessionID|SessionAlias|DoesSessionInstantiation;
 
-=head2 WheelID
+=type WheelID
 
 WheelIDs are represented as positive integers
 
@@ -133,9 +131,8 @@ subtype WheelID,
     where { $_ > 0 },
     message { 'Something is horribly wrong with WheelID.' };
 
-=head1 COERCIONS
 
-=head2 SessionID
+=coerce SessionID
 
 You can coerce SessionAlias, Session, and DoesSessionInstantiation to a 
 SessionID (via to_SessionID)
@@ -150,6 +147,13 @@ coerce SessionID,
     from DoesSessionInstantiation,
         via { $_->ID };
 
+=coerce SessionAlias
+
+You can also coerce a SessionAlias from a SessionID, Session, or DoesSessionInstantiation
+(via to_SessionAlias)
+
+=cut
+
 coerce SessionAlias,
     from SessionID,
         via { ($poe_kernel->alias_list($_))[0]; },
@@ -157,7 +161,12 @@ coerce SessionAlias,
         via { ($poe_kernel->alias_list($_))[0]; },
     from DoesSessionInstantiation,
         via { $_->alias; };
-        
+
+=coerce Session
+
+And finally a Session can be coerced from a SessionID, or SessionAlias (via to_Session)
+
+=cut
 
 coerce Session,
     from SessionID,
